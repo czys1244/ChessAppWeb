@@ -1,0 +1,15 @@
+#home {
+    margin-top: 200px;
+    text-align: center;
+    color: green;
+    font-size: 100px;
+}
+.chessbackround {
+    background-image: url("../../assets/chessboardBackround.png");
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+}
