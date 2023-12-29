@@ -1,13 +1,28 @@
 import {useState} from "react";
 import './styles/Login.css'
+import {json} from "react-router-dom";
 
 export const Login = ()=>{
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        console.log(password);
+
+        const payload = {
+            username: username,
+            password: password
+        }
+        fetch('/api/login', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
+            .catch(err => {
+                console.error(err)
+            })
     }
     return (
         <div className="chessbackround">
@@ -16,14 +31,14 @@ export const Login = ()=>{
             <div>
                 <form onSubmit={handleSubmit} id="login">
                     <label>Username</label>
-                    <input value={email} onChange={(e)=>{
-                        setEmail(e.target.value)
+                    <input value={username} onChange={(e)=>{
+                        setUsername(e.target.value)
                     }} placeholder="username" id="email" name="username"/>
                     <label htmlFor="password">Password</label>
                     <input value={password} onChange={(e)=>{
                         setPassword(e.target.value)
                     }} type="password" placeholder="password" id="password" name="password"/>
-                    <button id="loginSubmit">Log in</button>
+                    <button id="loginSubmit" className="loginbutton" >Log in</button>
                 </form>
 
             </div>
