@@ -2,7 +2,7 @@ import './styles/Home.css'
 import {SidebarButtons} from "./SidebarButtons.jsx";
 
 import './styles/timeOptionsMenu.css'
-export const Home = () => {
+export const Invitecode = () => {
     return (
         <div className="flex-container">
             <div className="sidebar">
@@ -10,10 +10,9 @@ export const Home = () => {
             </div>
             <div className="center" >
                 <div className="timeOptionsMenu">
-                    <p>Time format</p>
-                    <button className="timeOptionsButtons">Blitz: 3+0</button>
-                    <button className="timeOptionsButtons">Rapid: 10+5</button>
-                    <button className="timeOptionsButtons">Classical: 30+0</button>
+                    <p>Play with invite code</p>
+                    <button className="inviteButtons">Send invite code</button>
+                    <button className="inviteButtons">Join game</button>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import {useState} from "react";
 import './styles/Login.css'
-import {json} from "react-router-dom";
+import {setAuthHeader} from "../auth/auth.js";
+// import {json} from "react-router-dom";
 
 export const Login = ()=>{
     const [username, setUsername] = useState('');
@@ -18,8 +19,14 @@ export const Login = ()=>{
             body: JSON.stringify(payload),
             headers: {'Content-Type': 'application/json'}
         })
-            .then(response => response.json())
-            .then(json => console.log(json))
+            .then(response => {
+                if (response.status === 200)
+                    return response.json()
+            })
+            .then(json => {
+                setAuthHeader(json.token)
+                console.log(json)
+            })
             .catch(err => {
                 console.error(err)
             })

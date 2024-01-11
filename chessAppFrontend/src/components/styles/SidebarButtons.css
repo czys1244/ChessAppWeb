@@ -1,0 +1,18 @@
+.sidebarButtons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.sidebarButton {
+    margin: 5px;
+    background-color: #26ef26;
+    font-size: 25px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.username{
+    color: white;
+    font-size: 20px;
+    margin-top: 50vh;
+ }

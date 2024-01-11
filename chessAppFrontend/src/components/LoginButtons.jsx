@@ -1,6 +1,6 @@
 import './styles/LoginButtons.css'
 import {Link} from "react-router-dom";
-import './styles/Home.css'
+
 
 
 export const LoginButtons = ()=>{

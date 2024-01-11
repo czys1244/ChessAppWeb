@@ -1,0 +1,48 @@
+.GamesidebarButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+.GamesidebarButton {
+    margin: 5px;
+    background-color: #26ef26;
+    font-size: 25px;
+    border-radius: 20px;
+    padding: 10px;
+    width: 90%;
+
+}
+
+.Gameusername{
+    color: white;
+    font-size: 20px;
+    margin-top: 40vh;
+}
+.Gameusername2{
+    color: white;
+    font-size: 20px;
+}
+
+.textsend{
+    width: 80%;
+}
+
+#gap{
+    height: 70vh;
+}
+#chat{
+    font-size: 30px;
+    margin-left: 50px;
+}
+
+#send{
+    margin-left: 30px;
+    width: 95%;
+}
+#sendButton{
+    margin-left: 45px;
+    width: 95%;
+}
+
+

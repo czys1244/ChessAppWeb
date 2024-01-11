@@ -1,11 +1,13 @@
 import {useState} from "react";
 import './styles/Login.css'
+import {setAuthHeader} from "../auth/auth.js";
 
 export const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
+        // setAuthHeader("null")
         const payload = {
             username: username,
             password: password
