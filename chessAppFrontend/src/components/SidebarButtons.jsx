@@ -7,10 +7,10 @@ export const SidebarButtons = ()=>{
             <Link to="/home">
                 <button className="sidebarButton">Play ranked</button>
             </Link>
-            <Link to={"/play"}>
+            <Link to={"/invite"}>
                 <button className="sidebarButton">Play with friend</button>
             </Link>
-            <Link to={"/play"}>
+            <Link to={"/home"}>
                 <button className="sidebarButton">History</button>
             </Link>
             <div className="username">

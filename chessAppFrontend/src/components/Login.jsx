@@ -1,6 +1,7 @@
 import {useState} from "react";
 import './styles/Login.css'
 import {setAuthHeader} from "../auth/auth.js";
+import {Link} from "react-router-dom";
 // import {json} from "react-router-dom";
 
 export const Login = ()=>{
@@ -45,7 +46,9 @@ export const Login = ()=>{
                     <input value={password} onChange={(e)=>{
                         setPassword(e.target.value)
                     }} type="password" placeholder="password" id="password" name="password"/>
-                    <button id="loginSubmit" className="loginbutton" >Log in</button>
+                    <Link to="/home">
+                        <button id="loginSubmit" className="loginbutton" >Log in</button>
+                    </Link>
                 </form>
 
             </div>
