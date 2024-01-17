@@ -1,5 +1,6 @@
 package com.chessapp.chessappbackend.services;
 
+import com.chessapp.chessappbackend.models.Game;
 import com.chessapp.chessappbackend.models.User;
 import com.chessapp.chessappbackend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    
     public UserDetailsService userDetailsService() {
         return new UserDetailsService(){
             @Override
@@ -31,6 +32,12 @@ public class UserService {
         }
         newUser.setUpdatedAt(LocalDateTime.now());
         return userRepository.save(newUser);
+    }
+
+    public int getRating(String user) {
+
+        User loggedUser = userRepository.findByUsername(user).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return loggedUser.getRating();
     }
 
 }

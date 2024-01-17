@@ -2,20 +2,52 @@ import './styles/Home.css'
 import {SidebarButtons} from "./SidebarButtons.jsx";
 
 import './styles/timeOptionsMenu.css'
-import {setAuthHeader} from "../auth/auth.js";
-export const InviteCode = () => {
-    function copyInviteToClipboard() {
-        fetch('/game/create', {
-            method: 'GET',
+import {getAuthToken} from "../auth/auth.js";
+
+export const InviteCode = ()=>{
+    function joinWithGameID(){
+        let token = getAuthToken();
+        let gameID = prompt("Enter invite code");
+        if (gameID === null)
+            return;
+        fetch('/api/game/connect', {
+            method: 'POST',
+            body: JSON.stringify({player: "playerB",
+                gameId: gameID}),
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
         })
-            .then(response => {
+            .then(response=>{
                 if (response.status === 200)
                     return response.json()
             })
-            .then(json => {
+            .then(json=>{
                 console.log(json);
             })
-            .catch(err => {
+            .catch(err=>{
+                console.error(err)
+            })
+    }
+    function copyInviteToClipboard(){
+        let token = getAuthToken();
+        fetch('/api/game/create', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response=>{
+                if (response.status === 200)
+                    return response.json()
+            })
+            .then(json=>{
+                navigator.clipboard.writeText(json.id);
+                console.log(json);
+            })
+            .catch(err=>{
                 console.error(err)
             })
         alert("Invite code copied to clipboard");
@@ -26,11 +58,11 @@ export const InviteCode = () => {
             <div className="sidebar">
                 <SidebarButtons/>
             </div>
-            <div className="center" >
+            <div className="center">
                 <div className="timeOptionsMenu">
                     <p>Play with invite code</p>
                     <button onClick={copyInviteToClipboard} className="inviteButtons">Send invite code</button>
-                    <button className="inviteButtons">Join game</button>
+                    <button onClick={joinWithGameID} className="inviteButtons">Join game</button>
                 </div>
             </div>
         </div>

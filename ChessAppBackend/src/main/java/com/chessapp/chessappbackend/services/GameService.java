@@ -1,11 +1,10 @@
 package com.chessapp.chessappbackend.services;
 
-import com.chessapp.chessappbackend.models.Game;
-import com.chessapp.chessappbackend.models.GameStatusEnum;
-import com.chessapp.chessappbackend.models.Move;
-import com.chessapp.chessappbackend.models.Player;
+import com.chessapp.chessappbackend.models.*;
 import com.chessapp.chessappbackend.repositories.GameRepository;
+import com.chessapp.chessappbackend.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -53,7 +52,7 @@ public class GameService {
         return game;
     }
 
-    public Game sow(Move move) {
+    public Game move(Move move) {
         Optional<Game> optionalGame=gameRepository.findById(move.getGameId());
 
         optionalGame.orElseThrow(() ->new RuntimeException("Game with provided id doesn't exist"));

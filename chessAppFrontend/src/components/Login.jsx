@@ -1,13 +1,13 @@
 import {useState} from "react";
 import './styles/Login.css'
 import {setAuthHeader} from "../auth/auth.js";
-import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import {json} from "react-router-dom";
 
 export const Login = ()=>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate = useNavigate();
     const handleSubmit = (e)=>{
         e.preventDefault();
 
@@ -31,12 +31,17 @@ export const Login = ()=>{
             .catch(err => {
                 console.error(err)
             })
+
+    }
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
     return (
         <div className="chessbackround">
             <h1 id='home'>ChessApp</h1>
 
             <div>
+
                 <form onSubmit={handleSubmit} id="login">
                     <label>Username</label>
                     <input value={username} onChange={(e)=>{
@@ -46,9 +51,15 @@ export const Login = ()=>{
                     <input value={password} onChange={(e)=>{
                         setPassword(e.target.value)
                     }} type="password" placeholder="password" id="password" name="password"/>
-                    <Link to="/home">
-                        <button id="loginSubmit" className="loginbutton" >Log in</button>
-                    </Link>
+
+                    <button id="loginSubmit" className="loginbutton" onClick={() => {
+                        sleep(1000).then(() => {
+                            navigate("/home");
+                        });
+                    }
+                    }
+                       >Log in</button>
+
                 </form>
 
             </div>

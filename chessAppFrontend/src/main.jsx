@@ -18,12 +18,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <BrowserRouter>
             <Routes>
                 <Route element={<PrivateRoutes />}>
-                    <Route path="/register" element={<Register/>}/>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/play" element={<Play/>}/>
                     <Route path="/invite" element={<InviteCode/>}/>
                     <Route path="/h" element={<App/>}/>
                 </Route>
+                <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/" element={<LoginButtons/>}/>
             </Routes>

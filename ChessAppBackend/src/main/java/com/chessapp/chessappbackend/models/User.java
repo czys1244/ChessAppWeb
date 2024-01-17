@@ -33,6 +33,8 @@ public class User implements UserDetails {
 
     LocalDateTime updatedAt;
 
+    int rating;
+
     @Enumerated(EnumType.STRING)
     Role role;
 
