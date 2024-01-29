@@ -40,4 +40,8 @@ public class UserService {
         return loggedUser.getRating();
     }
 
+    public Integer getUserRating(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return user.getRating();
+    }
 }

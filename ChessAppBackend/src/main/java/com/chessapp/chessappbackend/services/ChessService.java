@@ -1,10 +1,10 @@
 package com.chessapp.chessappbackend.services;
 
 import com.chessapp.chessappbackend.models.Game;
-import com.chessapp.chessappbackend.models.Move;
+//import com.chessapp.chessappbackend.models.Move;
 
 public class ChessService {
-    public Game move(Game game, Integer squareIndex) {
+    public void move() {
 
 //        Square selectedSquare = game.getSquareByIndex(squareIndex);
 
@@ -20,10 +20,9 @@ public class ChessService {
         //player turn
 //        setPlayerTurn(game, lastMove);
 
-        return game;
     }
 
-    private void setPlayerTurn(Game game, Move lastMove) {
+    private void setPlayerTurn(Game game) {
 
     }
 
@@ -31,7 +30,7 @@ public class ChessService {
         return false;
     }
 
-    private void doMove(Game game, Move move) {
+    private void doMove() {
 
     }
 

@@ -14,7 +14,7 @@ import {Play} from "./components/Play.jsx";
 import {InviteCode} from "./components/InviteCode.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <BrowserRouter>
             <Routes>
                 <Route element={<PrivateRoutes />}>
@@ -28,5 +28,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/" element={<LoginButtons/>}/>
             </Routes>
         </BrowserRouter>
-    </React.StrictMode>,
+    // </React.StrictMode>,
 )

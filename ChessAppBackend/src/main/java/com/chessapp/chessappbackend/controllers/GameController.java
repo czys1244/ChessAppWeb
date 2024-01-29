@@ -1,7 +1,8 @@
 package com.chessapp.chessappbackend.controllers;
 import com.chessapp.chessappbackend.dto.ConnectRequest;
+import com.chessapp.chessappbackend.dto.moveRequest;
 import com.chessapp.chessappbackend.models.Game;
-import com.chessapp.chessappbackend.models.Move;
+import com.chessapp.chessappbackend.models.Message;
 import com.chessapp.chessappbackend.models.Player;
 import com.chessapp.chessappbackend.services.GameService;
 import com.chessapp.chessappbackend.services.UserService;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -27,11 +30,25 @@ public class GameController {
 //        Player authPlayer = new Player(authUser);
         return ResponseEntity.ok(userService.getRating(authUser));
     }
+
+
     @GetMapping("/create")
     public ResponseEntity<Game> create(Authentication authentication) {
         String authUser = authentication.getName();
         Player authPlayer = new Player(authUser);
         return ResponseEntity.ok(gameService.createGame(authPlayer));
+    }
+
+    @PostMapping("/getgame")
+    public ResponseEntity<Game> getGameId(@RequestBody ConnectRequest request, Authentication authentication) throws RuntimeException {
+        String id = request.getGameId();
+        Game game = gameService.getGameById(id);
+        return ResponseEntity.ok(game);
+    }
+
+    @PostMapping("/rating")
+    public ResponseEntity<Integer> getUserRating(@RequestBody Player username ) {
+        return ResponseEntity.ok(userService.getUserRating(username.getName()));
     }
     @PostMapping("/connect")
     public ResponseEntity<Game> connect(@RequestBody ConnectRequest request, Authentication authentication) throws RuntimeException {
@@ -41,13 +58,21 @@ public class GameController {
         return ResponseEntity.ok(gameService.connectToGame(authPlayer, request.getGameId()));
     }
 
-    @PostMapping("/move")
-    public ResponseEntity<Game> move(@RequestBody Move move) throws  RuntimeException {
+    @PostMapping("/send/move")
+    public ResponseEntity<Game> move(@RequestBody moveRequest move, Authentication authentication) throws  RuntimeException {
         log.info("move: {}", move);
-        Game game = gameService.move(move);
+        String authUser = authentication.getName();
+        Game game = gameService.move(move, authUser);
 
-        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getId(), game);
+        simpMessagingTemplate.convertAndSend("/queue/game-progress/" + game.getId(), move);
         return ResponseEntity.ok(game);
+    }
+
+    @PostMapping("/send/chat")
+    public ResponseEntity<Message> text(@RequestBody Message message) throws  RuntimeException {
+//        log.info("message: {}", message);
+        simpMessagingTemplate.convertAndSend("/topic/message/" + message.getGameId(), message);
+        return ResponseEntity.ok(message);
     }
 
 

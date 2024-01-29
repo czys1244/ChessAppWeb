@@ -48,8 +48,8 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/register", "/api/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/test/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/register", "/api/game/getgame", "/send/**", "/api/login","/chat/**", "/move/**", "/api/game/send/chat","/api/game/rating/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/test/**", "/chat/**", "/move/**", "/send/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

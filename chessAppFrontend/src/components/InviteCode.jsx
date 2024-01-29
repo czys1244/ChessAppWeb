@@ -1,10 +1,11 @@
 import './styles/Home.css'
 import {SidebarButtons} from "./SidebarButtons.jsx";
-
+import { useNavigate } from "react-router-dom";
 import './styles/timeOptionsMenu.css'
 import {getAuthToken} from "../auth/auth.js";
 
 export const InviteCode = ()=>{
+    const navigate = useNavigate();
     function joinWithGameID(){
         let token = getAuthToken();
         let gameID = prompt("Enter invite code");
@@ -24,6 +25,8 @@ export const InviteCode = ()=>{
                     return response.json()
             })
             .then(json=>{
+                window.localStorage.setItem('game_id', gameID);
+                navigate("/play");
                 console.log(json);
             })
             .catch(err=>{
@@ -46,6 +49,8 @@ export const InviteCode = ()=>{
             .then(json=>{
                 navigator.clipboard.writeText(json.id);
                 console.log(json);
+                // navigate("/play");
+
             })
             .catch(err=>{
                 console.error(err)

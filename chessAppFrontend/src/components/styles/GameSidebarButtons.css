@@ -25,11 +25,14 @@
 }
 
 .textsend{
-    width: 80%;
+    width: 100px;
+    position: absolute;
+    bottom: 50px;
+    right: 0;
 }
 
 #gap{
-    height: 70vh;
+    height: 60vh;
 }
 #chat{
     font-size: 30px;
@@ -38,11 +41,35 @@
 
 #send{
     margin-left: 30px;
-    width: 95%;
+    width: 50vh;
 }
 #sendButton{
     margin-left: 45px;
-    width: 95%;
+    width: 55vh;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.chatList{
+    width: 100%;
+
+}
+.message{
+    background-color: #198a19;
+    border-radius: 20px;
+    height: 5vh;
+    width: 55vh;
+    margin-left: 2vh;
+    padding-top: 2vh;
+}
+.opponentMessage{
+    background-color: #5555f1;
+    border-radius: 20px;
+    height: 5vh;
+    width: 55vh;
+    margin-left: 2vh;
+    padding-top: 2vh;
 }
 
 
