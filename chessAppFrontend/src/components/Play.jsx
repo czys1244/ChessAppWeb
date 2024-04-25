@@ -18,17 +18,14 @@ export const Play = ()=>{
     // const [socket, setSocket] = useState(null);
     const [fen, setFen] = useState(chess.fen()); // <- 2
     const [gameId, setGameId] = useState("-");
-    const [over, setOver] = useState("");
     const [userName, setUserName] = useState('Username');
     const [userRating, setUserRating] = useState('---');
     // const [opponentRating, setOpponentRating] = useState('---');
     const [turn, setTurn] = useState('w');
-    const [time1, setTime1] = useState("600");
-    const [time2, setTime2] = useState("600");
     const [isTimer1Running, setIsTimer1Running] = useState(true);
     const [isTimer2Running, setIsTimer2Running] = useState(false);
     const [firstMove, setFirstMove] = useState(true);
-    const [xd, setXd] = useState(0);
+    const time = 600;
 
     useEffect(()=>{
         let token = getAuthToken();
@@ -78,52 +75,15 @@ export const Play = ()=>{
     }
 
     const onMoveReceived = (payloadData)=>{
-
         let text = JSON.parse(payloadData.body);
         makeAMove(text);
-
-
-
-        // console.log("TIMER");
-        // console.log(isTimer1Running)
-        // console.log(isTimer2Running)
-
-        // setChats(chats=>[...chats, text]);
-        // console.log(text);
-        console.log("RECEIVCED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        // if(!isTimer1Running && !isTimer2Running){
-        //     setIsTimer2Running(isTimer2Running=>!isTimer2Running);
-        // }
-        // else {
-        //     setIsTimer1Running(isTimer1Running=>!isTimer1Running);
-        //     setIsTimer2Running(isTimer2Running=>!isTimer2Running);
-        // }
-        //
-        // else if(isTimer1Running){
-        //     setIsTimer1Running(false);
-        //     setIsTimer2Running(true);
-        // }
-        // else if(isTimer2Running) {
-        //     setIsTimer1Running(true);
-        //     setIsTimer2Running(false);
-        // }
 
         setIsTimer1Running(isTimer1Running=>!isTimer1Running);
         setIsTimer2Running(isTimer2Running=>!isTimer2Running);
         setFirstMove(false);
-        setXd((xd)=>xd+1);
-
-        console.log(firstMove);
-        console.log(xd);
-        console.log(isTimer1Running);
-        console.log(isTimer2Running);
-
-
     }
 
     function sendMove(move){
-        // e.preventDefault();
         let moveSend = {
             gameId: window.localStorage.getItem('game_id'),
             from: move.from,
@@ -151,19 +111,6 @@ export const Play = ()=>{
             .catch(err=>{
                 console.error(err)
             })
-        // axios.post('/api/game/send/move', moveSend, {
-        //     headers: {
-        //         'Authorization': 'Bearer ' + getAuthToken(),
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then(response=>{
-        //     console.log("MOVEVEVEVEVE")
-        //     console.log(response)
-        //
-        // }).catch(err=>{
-        //     console.error(err)
-        // });
-
 
     }
 
@@ -176,21 +123,13 @@ export const Play = ()=>{
                 console.log(result);
                 setFen(chess.fen()); // update fen state to trigger a re-render
                 // console.log(fen);
-                console.log("over, checkmate", chess.isGameOver(), chess.isCheckmate());
-
-
-
-                if (chess.isGameOver()) { // check if move led to "game over"
-                    if (chess.isCheckmate()) { // if reason for game over is a checkmate
-                        // Set message to checkmate.
-                        setOver(
-                            `Checkmate! ${chess.turn() === "w" ? "black" : "white"} wins!`
-                        );
-                        // The winner is determined by checking which side made the last move
+                if (chess.isGameOver()) {
+                    if (chess.isCheckmate()) {
+                        alert(`Checkmate! ${chess.turn() === "w" ? "black" : "white"} wins!`);
                     } else if (chess.isDraw()) { // if it is a draw
-                        setOver("Draw"); // set message to "Draw"
+                        alert(`Draw!`);
                     } else {
-                        setOver("Game over");
+                        alert(`Game over!`);
                     }
                 }
 
@@ -202,27 +141,6 @@ export const Play = ()=>{
         [chess]
     );
 
-    // function getTime(color){
-    //     let request = {
-    //         "player": setUserName(jwtDecode(getAuthToken()).sub),
-    //         "gameId": window.localStorage.getItem('game_id')
-    //     }
-    //     axios.post('/api/game/getgame', request).then(response=>{
-    //
-    //
-    //         // setTime1(response.data.firstPlayerTime);
-    //         // setTime2(response.data.secondPlayerTime);
-    //
-    //         //
-    //         // console.log("RESPONESE");
-    //         // console.log(time1);
-    //         // console.log(time2);
-    //
-    //
-    //     }).catch(err=>{
-    //         console.error(err)
-    //     });
-    // }
     function getGame(){
         let request = {
             "player": setUserName(jwtDecode(getAuthToken()).sub),
@@ -240,16 +158,6 @@ export const Play = ()=>{
             }
             chess.load(response.data.fen);
             setFen(chess.fen());
-
-            // setTime1(response.data.firstPlayerTime);
-            // setTime2(response.data.secondPlayerTime);
-
-            //
-            // console.log("RESPONESE");
-            // console.log(time1);
-            // console.log(time2);
-
-
         }).catch(err=>{
             console.error(err)
         });
@@ -289,10 +197,9 @@ export const Play = ()=>{
                 <div className="center2">
 
                     <div className="chess">
-                        {/*<div>{xd}</div>*/}
-                        <Timer color={'b'} duration={time2} isOn={isTimer2Running} firstMove={firstMove}/>
+                        <Timer color={'black'} user={userName} gameId={gameId} duration={time} isOn={isTimer2Running} firstMove={firstMove}/>
                         <Chessboard id="board" position={fen} onPieceDrop={onDrop} boardWidth={850}></Chessboard>
-                        <Timer color={'w'} duration={time1} isOn={isTimer1Running} firstMove={firstMove}/>
+                        <Timer color={'white'} user={userName} gameId={gameId} duration={time} isOn={isTimer1Running} firstMove={firstMove}/>
                     </div>
 
 

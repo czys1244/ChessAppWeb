@@ -37,7 +37,7 @@ export const SidebarButtons = ()=>{
             <Link to={"/invite"}>
                 <button className="sidebarButton">Play with friend</button>
             </Link>
-            <Link to={"/home"}>
+            <Link to={"/history"}>
                 <button className="sidebarButton">History</button>
             </Link>
             <div className="username">

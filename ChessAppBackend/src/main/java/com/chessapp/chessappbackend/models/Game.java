@@ -29,7 +29,9 @@ public class Game {
     private String winner;
     Long startedAt;
     private Long time;
-
+    private Integer firstPlayerDrawOffer;
+    private Integer secondPlayerDrawOffer;
+    private Integer isRanked;
     String fen;
 
 
@@ -40,6 +42,9 @@ public class Game {
         Board board = new Board();
         fen = board.getFen();
         playerTurn = PlayerTurnEnum.FIRST_PLAYER;
+        firstPlayerDrawOffer = 0;
+        secondPlayerDrawOffer = 0;
+        isRanked = 0;
     }
 
 

@@ -13,7 +13,7 @@ export const InviteCode = ()=>{
             return;
         fetch('/api/game/connect', {
             method: 'POST',
-            body: JSON.stringify({player: "playerB",
+            body: JSON.stringify({
                 gameId: gameID}),
             headers: {
                 'Authorization': 'Bearer ' + token,

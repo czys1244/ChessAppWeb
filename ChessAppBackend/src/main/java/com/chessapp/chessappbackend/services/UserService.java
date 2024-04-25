@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +44,9 @@ public class UserService {
     public Integer getUserRating(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return user.getRating();
+    }
+
+    public Optional<User> findByUsername(String user) {
+        return userRepository.findByUsername(user);
     }
 }

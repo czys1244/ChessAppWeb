@@ -12,6 +12,7 @@ import PrivateRoutes from "./auth/PrivateRoutes.jsx";
 import {Home} from "./components/Home.jsx";
 import {Play} from "./components/Play.jsx";
 import {InviteCode} from "./components/InviteCode.jsx";
+import {History} from "./components/History.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     // <React.StrictMode>
@@ -21,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/play" element={<Play/>}/>
                     <Route path="/invite" element={<InviteCode/>}/>
-                    <Route path="/h" element={<App/>}/>
+                    <Route path="/history" element={<History/>}/>
                 </Route>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>

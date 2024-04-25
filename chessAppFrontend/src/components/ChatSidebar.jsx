@@ -2,7 +2,6 @@ import './styles/GameSidebarButtons.css'
 import {useEffect, useState} from "react";
 import {over as socketOver, over} from "stompjs";
 import SockJS from "sockjs-client/dist/sockjs"
-import {getAuthToken} from "../auth/auth.js";
 import axios from 'axios';
 
 // var socket = null;
@@ -57,7 +56,7 @@ export const ChatSidebar = (props)=>{
 
     return (
         <div className="chat-box">
-            <p id="chat">Chat + {gameId}</p>
+            <p id="chat">Chat</p>
             <div className="chatList">
                 {chats.map((chats, index)=>{
                     // eslint-disable-next-line react/prop-types

@@ -1,5 +1,6 @@
 package com.chessapp.chessappbackend.controllers;
 import com.chessapp.chessappbackend.dto.ConnectRequest;
+import com.chessapp.chessappbackend.dto.GameId;
 import com.chessapp.chessappbackend.dto.moveRequest;
 import com.chessapp.chessappbackend.models.Game;
 import com.chessapp.chessappbackend.models.Message;
@@ -13,6 +14,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,12 +33,42 @@ public class GameController {
         return ResponseEntity.ok(userService.getRating(authUser));
     }
 
+    @GetMapping("/history")
+    public ResponseEntity<List<Game>> history(Authentication authentication) {
+        String authUser = authentication.getName();
+//        Player authPlayer = new Player(authUser);
+        return ResponseEntity.ok(gameService.history(authUser));
+    }
+
+    @PostMapping("/resign")
+    public ResponseEntity<Game> resign(@RequestBody GameId gameId, Authentication authentication) {
+        return ResponseEntity.ok(gameService.resign(gameId.getGameId(), authentication.getName())) ;
+    }
+
+    @PostMapping("/draw")
+    public ResponseEntity<Game> draw(@RequestBody GameId gameId, Authentication authentication) {
+        return ResponseEntity.ok(gameService.draw(gameId.getGameId(), authentication.getName())) ;
+    }
+
+    @PostMapping("/time")
+    public ResponseEntity<Game> time(@RequestBody GameId gameId, Authentication authentication) {
+        return ResponseEntity.ok(gameService.checkTime(gameId.getGameId(), authentication.getName())) ;
+    }
+
+
 
     @GetMapping("/create")
     public ResponseEntity<Game> create(Authentication authentication) {
         String authUser = authentication.getName();
         Player authPlayer = new Player(authUser);
         return ResponseEntity.ok(gameService.createGame(authPlayer));
+    }
+
+    @GetMapping("/ranked")
+    public ResponseEntity<Game> ranked(Authentication authentication) {
+        String authUser = authentication.getName();
+        Player authPlayer = new Player(authUser);
+        return ResponseEntity.ok(gameService.createRankedGame(authPlayer));
     }
 
     @PostMapping("/getgame")
@@ -56,6 +88,13 @@ public class GameController {
         Player authPlayer = new Player(authUser);
         log.info("connect request: {}", request);
         return ResponseEntity.ok(gameService.connectToGame(authPlayer, request.getGameId()));
+    }
+
+    @GetMapping("/connectrandom")
+    public ResponseEntity<Game> connectRandom(Authentication authentication) throws RuntimeException {
+        String authUser = authentication.getName();
+        Player authPlayer = new Player(authUser);
+        return ResponseEntity.ok(gameService.connectToRandomGame(authPlayer));
     }
 
     @PostMapping("/send/move")
